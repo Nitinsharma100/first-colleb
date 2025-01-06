@@ -4,7 +4,10 @@ export const create=async(req,res)=>{
     try {
         const newItem=new crudModel(req.body);
         await newItem.save();
-        res.status(201).json(newItem)
+        res.status(201).json({
+            message:"Added",
+            newItem
+        })
     } catch (error) {
         res.status(400).json({ error: err.message });
     }
