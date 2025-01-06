@@ -13,7 +13,7 @@ export const create=async(req,res)=>{
 export const getall=async(req,res)=>{
     try {
         const items = await crudModel.find();
-        res.status(200).json(items);
+        res.status(200).json({items});
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -39,7 +39,7 @@ export const update=async(req,res)=>{
     }
 }
 
-export const del=async(req,res)=>{
+export const  del=async(req,res)=>{
     try {
         const deletedItem = await crudModel.findByIdAndDelete(req.params.id);
         if (!deletedItem) return res.status(404).json({ message: 'Item not found' });
