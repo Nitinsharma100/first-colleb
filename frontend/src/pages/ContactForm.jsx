@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -13,9 +13,25 @@ const ContactForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form Data Submitted: ", formData);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:4000/api/create",
+        formData
+      );
+      // alert(data.message)
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+      });
+    } catch (error) {
+      console.log(error);
+      alert(error?.response?.data?.message);
+    }
   };
 
   return (
